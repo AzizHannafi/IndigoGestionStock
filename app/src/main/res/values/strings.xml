@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">IndigoGestionStock</string>
+    <string name="entrer">Entrer</string>
+    <string name="login">login</string>
+    <string name="utilisateur">utilisateur</string>
+    <string name="mot_de_passe">Mot de passe</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fournisseur">Fournisseur</string>
+    <string name="article">Article</string>
+    <string name="scanner_le_code">scanner le code</string>
+    <string name="quantit">Quantité</string>
+    <string name="message">Message</string>
+    <string name="emplacement">Emplacement</string>
+    <string name="site">Site</string>
+    <string name="rayon">Rayon</string>
+    <string name="d_chargement">Déchargement</string>
+    <string name="lot">Lot</string>
+    <string name="camion">Camion</string>
+    <string name="chauffeur">Chauffeur</string>
+    <string name="transporteur">Transporteur</string>
+</resources>
