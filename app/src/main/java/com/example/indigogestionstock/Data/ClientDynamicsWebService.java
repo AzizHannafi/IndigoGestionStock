@@ -1,5 +1,6 @@
 package com.example.indigogestionstock.Data;
 
+import com.example.indigogestionstock.Models.Item;
 import com.example.indigogestionstock.Models.Key;
 import com.example.indigogestionstock.Models.PurchaseOrders;
 import com.example.indigogestionstock.Models.SalesOrder;
@@ -9,9 +10,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Path;
 
 public class ClientDynamicsWebService {
-    private static final String BASE_URL = "http:/192.168.1.13:8000/";
+    private static final String BASE_URL = "http:/192.168.1.11:8000/";
     private DynamicsInterface dynamicsInterface;
     private static ClientDynamicsWebService INSTANCE;
 
@@ -59,4 +61,9 @@ public class ClientDynamicsWebService {
     public Call<PurchaseOrders> getOnePurchaseOrders(String id_PurchaseOrder){
         return dynamicsInterface.getOnePurchaseOrders(id_PurchaseOrder);
     }
+
+    //*********************************Item  crud ************************************//
+    public  Call<Item> getOneItem(String idItem){
+        return  dynamicsInterface.getOneItem(idItem);
+    };
 }

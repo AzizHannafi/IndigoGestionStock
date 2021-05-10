@@ -1,5 +1,6 @@
 package com.example.indigogestionstock.Data;
 
+import com.example.indigogestionstock.Models.Item;
 import com.example.indigogestionstock.Models.Key;
 import com.example.indigogestionstock.Models.PurchaseOrders;
 import com.example.indigogestionstock.Models.SalesOrder;
@@ -47,4 +48,9 @@ public interface DynamicsInterface {
     //Get  one Purchase order by given id
     @GET("PurchaseOrders/GetOne/{id_PurchaseOrder}")
     Call<PurchaseOrders> getOnePurchaseOrders(@Path(value = "id_PurchaseOrder", encoded = true) String id_PurchaseOrder);
+
+    //**********************************************Items Crud***********************************//
+    @GET("Items/GetOne/{idItem}")
+    Call<Item> getOneItem(@Path(value = "idItem", encoded = true) String idItem);
+
 }

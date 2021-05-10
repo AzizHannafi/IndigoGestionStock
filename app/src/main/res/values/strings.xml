@@ -19,4 +19,5 @@
     <string name="camion">Camion</string>
     <string name="chauffeur">Chauffeur</string>
     <string name="transporteur">Transporteur</string>
+    <string name="valider">Valider</string>
 </resources>
