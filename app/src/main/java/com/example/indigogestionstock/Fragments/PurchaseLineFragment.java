@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class PurchaseLineFragment extends Fragment {
     private RecyclerView recyclerViewPurchaseLine;
     private RecyclerView.LayoutManager layoutManager;
     ClientDynamicsWebService client;
+    ImageView btnback;
     String No;
     TextView NoOrdrer;
     String noLine;
@@ -62,6 +64,15 @@ public class PurchaseLineFragment extends Fragment {
                 Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
+        btnback=(ImageView)v.findViewById(R.id.btnBack);
+        btnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PurchaseFragment PurchaseFragment = new PurchaseFragment();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,PurchaseFragment).commit();
+            }
+        });
+
          return v;
     }
 }

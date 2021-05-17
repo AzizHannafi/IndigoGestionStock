@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -30,23 +31,28 @@ import retrofit2.Response;
 
 public class ReceptionMpFragment extends Fragment {
 
+    CardView messageCard;
     EditText code ,designation,quantite;
     Button btn,btnvalidate ;
     ImageView btnback;
     ClientDynamicsWebService client;
-    LinearLayout linearLayout;
+    LinearLayout linearLayout,Linearlayoutdesignation,LinearLayoutQuantite;
     TextView message;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View v =inflater.inflate(R.layout.fragment_reception_mp, container, false);
+
+       messageCard= v.findViewById(R.id.cardviewMessage);
         btnvalidate=v.findViewById(R.id.btnvalidate);
         code = v.findViewById(R.id.qrt);
         btn = v.findViewById(R.id.qr);
         designation=v.findViewById(R.id.designation);
         quantite=v.findViewById(R.id.quantity);
         linearLayout=v.findViewById(R.id.linearLayoutMessage);
+        Linearlayoutdesignation=v.findViewById(R.id.LinearLayoutDesignation);
+        LinearLayoutQuantite=v.findViewById(R.id.LinearLayoutQuantité);
         message=v.findViewById(R.id.message);
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -77,21 +83,39 @@ public class ReceptionMpFragment extends Fragment {
                 client.getOneItem(idItem).enqueue(new Callback<Item>() {
                     @Override
                     public void onResponse(Call<Item> call, Response<Item> response) {
-                        Toast.makeText(getContext(),response.body().getInventory().toString(),Toast.LENGTH_LONG).show();
-                        designation.setText(response.body().getDescription().toString());
-                        quantite.setText(response.body().getInventory().toString());
-                    }
+                        //Toast.makeText(getContext(),response.body().getNo().toString(),Toast.LENGTH_LONG).show();
+                        if (response.body()!=null){
+
+                            //Toast.makeText(getContext(),response.body().getNo().toString(),Toast.LENGTH_LONG).show();
+                           if(response.body().getNo().toString().equals("null")){
+                               messageCard.setVisibility(View.VISIBLE);
+                                linearLayout.setVisibility(View.VISIBLE);
+                                message.setText("Article intouvable");
+                                Linearlayoutdesignation.setVisibility(View.INVISIBLE);
+                                LinearLayoutQuantite.setVisibility(View.INVISIBLE);
+                            }else {
+                                Toast.makeText(getContext(),response.body().getInventory().toString(),Toast.LENGTH_LONG).show();
+                                messageCard.setVisibility(View.INVISIBLE);
+                                Linearlayoutdesignation.setVisibility(View.VISIBLE);
+                                LinearLayoutQuantite.setVisibility(View.VISIBLE);
+                                designation.setText(response.body().getDescription().toString());
+                                quantite.setText(response.body().getInventory().toString());
+                            }
+
+                        }
+
+                        else if(code.getText().length()==0){
+                            linearLayout.setVisibility(View.VISIBLE);
+                            message.setText("Code a bare est vide ");
+                            Linearlayoutdesignation.setVisibility(View.INVISIBLE);
+                            LinearLayoutQuantite.setVisibility(View.INVISIBLE);
+                        }
+
+                }
 
                     @Override
                     public void onFailure(Call<Item> call, Throwable t) {
                         Toast.makeText(getContext(),"Error",Toast.LENGTH_LONG).show();
-                       /* if (code.getText().equals(null)){
-                            linearLayout.setVisibility(View.VISIBLE);
-                            message.setText("Article vide ou intouvable ");
-                        }*/
-
-
-
                     }
                 });
             }

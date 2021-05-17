@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.indigogestionstock.Adapters.SalesOrderAdapter;
@@ -31,6 +32,7 @@ public class SalesOrderFragment extends Fragment {
     private RecyclerView.LayoutManager layoutManager;
     ClientDynamicsWebService client;
     Button btnPurchaseOrder;
+    ImageView btnback;
 
     //Context context;
     List<SalesOrder> listso = new ArrayList<SalesOrder>();
@@ -58,6 +60,17 @@ public class SalesOrderFragment extends Fragment {
                 Toast.makeText(getContext(),t.getMessage(),Toast.LENGTH_LONG).show();
             }
         });
+        btnback=(ImageView)v.findViewById(R.id.btnBack);
+        btnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MenuGeneralFragment menuGeneralFragment = new MenuGeneralFragment();
+                getFragmentManager().beginTransaction().replace(R.id.fragment_container,menuGeneralFragment).commit();
+
+
+            }
+        });
+
         return  v;
     }
 }

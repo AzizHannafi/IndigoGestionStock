@@ -148,7 +148,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:id="@+id/LinearLayoutDesignation">
 
                         <TextView
 
@@ -169,7 +170,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:id="@+id/LinearLayoutQuantité">
 
                         <TextView
                             android:id="@+id/T11"
@@ -200,10 +202,12 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="8dp"
-                app:cardElevation="8dp">
+                app:cardElevation="8dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/cardviewMessage">
 
                 <LinearLayout
                     android:id="@+id/linearLayoutMessage"
@@ -223,7 +227,9 @@
                         android:id="@+id/message"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text" />
+                        android:layout_marginLeft="10dp"
+                        android:inputType="text"
+                        android:textColor="#9F0000"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>

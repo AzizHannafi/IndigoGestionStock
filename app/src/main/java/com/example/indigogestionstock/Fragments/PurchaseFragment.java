@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.example.indigogestionstock.Adapters.PurchaseOrdersAdapter;
 import com.example.indigogestionstock.Data.ClientDynamicsWebService;
@@ -27,6 +28,7 @@ public class PurchaseFragment extends Fragment {
     private RecyclerView recyclerViewSalesOrder;
     private RecyclerView.LayoutManager layoutManager;
     ClientDynamicsWebService client;
+    ImageView btnback;
     List<PurchaseOrders> listPo = new ArrayList<PurchaseOrders>();
  @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +53,15 @@ public class PurchaseFragment extends Fragment {
 
             }
         });
+
+     btnback=(ImageView)v.findViewById(R.id.btnBack);
+     btnback.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+             MenuGeneralFragment menuGeneralFragment = new MenuGeneralFragment();
+             getFragmentManager().beginTransaction().replace(R.id.fragment_container,menuGeneralFragment).commit();
+         }
+     });
         return v;
     }
 }
