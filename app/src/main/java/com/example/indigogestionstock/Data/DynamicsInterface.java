@@ -4,6 +4,7 @@ import com.example.indigogestionstock.Models.Item;
 import com.example.indigogestionstock.Models.Key;
 import com.example.indigogestionstock.Models.PurchaseOrders;
 import com.example.indigogestionstock.Models.SalesOrder;
+import com.example.indigogestionstock.Models.User;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface DynamicsInterface {
@@ -53,4 +55,10 @@ public interface DynamicsInterface {
     @GET("Items/GetOne/{idItem}")
     Call<Item> getOneItem(@Path(value = "idItem", encoded = true) String idItem);
 
+    //**********************************************Login*****************************************//
+    @POST("Users/Login")
+    Call<User> login(@Body User user);
+
+    @POST("Users/GetUserByID/{idUser}")
+    Call<User> getUserByID(@Path(value = "idUser", encoded = true) String idUser);
 }

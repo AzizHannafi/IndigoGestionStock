@@ -13,5 +13,9 @@
             android:icon="@drawable/purchaseicon"
             android:id="@+id/Commandeachat"
             android:title="Commande achat"/>
+        <item
+            android:icon="@drawable/logout"
+            android:id="@+id/logout"
+            android:title="Se deconnecter"/>
     </group>
 </menu>
