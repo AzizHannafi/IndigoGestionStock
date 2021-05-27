@@ -72,7 +72,6 @@
         android:id="@+id/login"
         android:layout_width="234dp"
         android:layout_height="47dp"
-        android:layout_marginBottom="176dp"
         android:background="#1B52A9"
         android:gravity="center"
         android:text="@string/login"
@@ -81,8 +80,10 @@
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.78" />
 
     <EditText
         android:id="@+id/user"

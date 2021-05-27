@@ -8,6 +8,10 @@ public class PurchaseLine {
     @Expose
     String       Key;
 
+    @SerializedName("itemNo")
+    @Expose
+    String       itemNo;
+
     @SerializedName("type")
     @Expose
     String       Type;
@@ -28,9 +32,30 @@ public class PurchaseLine {
     @Expose
     String       Line_No;
 
+    @SerializedName("description")
+    @Expose
+    String description;
+
+    @SerializedName("quantity")
+    @Expose
+    String quantity;
+
     public PurchaseLine() {
     }
 
+    public PurchaseLine(String key, String itemNo, String type, String unit_of_Measure_Code, String unit_of_Measure, String document_No, String line_No, String description, String quantity) {
+        Key = key;
+        this.itemNo = itemNo;
+        Type = type;
+        Unit_of_Measure_Code = unit_of_Measure_Code;
+        Unit_of_Measure = unit_of_Measure;
+        Document_No = document_No;
+        Line_No = line_No;
+        this.description = description;
+        this.quantity = quantity;
+    }
+
+    //this constuctor can be deleted
     public PurchaseLine(String key, String type, String unit_of_Measure_Code, String unit_of_Measure, String document_No, String line_No) {
         Key = key;
         Type = type;
@@ -38,6 +63,7 @@ public class PurchaseLine {
         Unit_of_Measure = unit_of_Measure;
         Document_No = document_No;
         Line_No = line_No;
+
     }
 
     public String getKey() {
@@ -86,5 +112,29 @@ public class PurchaseLine {
 
     public void setLine_No(String line_No) {
         Line_No = line_No;
+    }
+
+    public String getItemNo() {
+        return itemNo;
+    }
+
+    public void setItemNo(String itemNo) {
+        this.itemNo = itemNo;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
     }
 }

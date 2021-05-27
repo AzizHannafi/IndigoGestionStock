@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,6 +47,13 @@ public class PurchaseLineAdapters extends RecyclerView.Adapter<PurchaseLineAdapt
         holder.line_No.setText(pl.getLine_No());
         holder.unit_of_Measure.setText(pl.getUnit_of_Measure());
         holder.unit_of_Measure_Code.setText(pl.getUnit_of_Measure_Code());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context,"item no "+pl.getDescription(),Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override

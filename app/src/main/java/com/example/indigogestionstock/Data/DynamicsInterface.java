@@ -3,6 +3,7 @@ package com.example.indigogestionstock.Data;
 import com.example.indigogestionstock.Models.Item;
 import com.example.indigogestionstock.Models.Key;
 import com.example.indigogestionstock.Models.PurchaseOrders;
+import com.example.indigogestionstock.Models.Rejet;
 import com.example.indigogestionstock.Models.SalesOrder;
 import com.example.indigogestionstock.Models.User;
 
@@ -13,6 +14,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.HTTP;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface DynamicsInterface {
@@ -39,7 +41,8 @@ public interface DynamicsInterface {
     @HTTP(method = "DELETE",path = "SalesLine/DeleteSlaesLine",hasBody = true)
     Call<Void> DeleteSlaesLine(@Body Key key);
 
-
+    @HTTP(method = "DELETE",path = "PurchaseOrders/DeletePurchaseOrders",hasBody = true)
+    Call<Void> DeletePurchaseOrder(@Body Key key );
 
     //**********************************************Purchase Order Crud***********************************//
 
@@ -51,6 +54,8 @@ public interface DynamicsInterface {
     @GET("PurchaseOrders/GetOne/{id_PurchaseOrder}")
     Call<PurchaseOrders> getOnePurchaseOrders(@Path(value = "id_PurchaseOrder", encoded = true) String id_PurchaseOrder);
 
+    @PUT("PurchaseOrders/UpdateStatus/{idPurchaseOrder}/{status}")
+    Call<Void> updateStatus(@Path(value = "idPurchaseOrder", encoded = true)String idPurchaseOrder,@Path(value = "status", encoded = true) String status);
     //**********************************************Items Crud***********************************//
     @GET("Items/GetOne/{idItem}")
     Call<Item> getOneItem(@Path(value = "idItem", encoded = true) String idItem);
@@ -61,4 +66,10 @@ public interface DynamicsInterface {
 
     @POST("Users/GetUserByID/{idUser}")
     Call<User> getUserByID(@Path(value = "idUser", encoded = true) String idUser);
+    //**********************************************Reject crud*****************************************//
+    @POST("Rejet/add/{idCommande}/{idItem}")
+    Call<Void> addToReject(@Path(value = "idCommande", encoded = true) String idCommande,@Path(value = "idItem", encoded = true) String idItem);
+
+    @POST("Rejet/GetOne")
+    Call<Rejet> getOneRejet(@Body Rejet rejet);
 }

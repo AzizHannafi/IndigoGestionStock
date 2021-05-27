@@ -8,7 +8,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="fournisseur">Fournisseur</string>
     <string name="article">Article</string>
-    <string name="scanner_le_code">scanner le code</string>
+    <string name="scanner_le_code">scanner ou saisir le code a barre</string>
     <string name="quantit">Quantité</string>
     <string name="message">Message</string>
     <string name="emplacement">Emplacement</string>
@@ -20,4 +20,5 @@
     <string name="chauffeur">Chauffeur</string>
     <string name="transporteur">Transporteur</string>
     <string name="valider">Valider</string>
+    <string name="scannrer_le_code_a_barre">scanner ou saisir le code a barre de la commande</string>
 </resources>

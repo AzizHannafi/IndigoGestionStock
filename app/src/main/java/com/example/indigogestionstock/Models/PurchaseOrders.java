@@ -26,6 +26,10 @@ public class PurchaseOrders {
     @Expose
     String       Posting_Description;
 
+    @SerializedName("status")
+    @Expose
+    String status;
+
     @SerializedName("purchLines")
     @Expose
     List<PurchaseLine> PurchLines;
@@ -75,6 +79,14 @@ public class PurchaseOrders {
 
     public List<PurchaseLine> getPurchLines() {
         return PurchLines;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public void setPurchLines(List<PurchaseLine> purchLines) {
