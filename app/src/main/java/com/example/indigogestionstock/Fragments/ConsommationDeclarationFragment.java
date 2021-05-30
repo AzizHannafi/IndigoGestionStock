@@ -31,7 +31,7 @@ public class ConsommationDeclarationFragment extends Fragment {
         ViewPagerAdapter ViewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
 
         ViewPagerAdapter.addFragment(ConsomationFragment.getInstance(),"Consaommation");
-        ViewPagerAdapter.addFragment(DeclarationFragment.getInstance(),"Déclaration");
+        ViewPagerAdapter.addFragment(ProductionFragment.getInstance(),"Production");
 
         viewPager.setAdapter(ViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

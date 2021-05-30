@@ -31,7 +31,7 @@ public class RengementPaletteFragment extends Fragment {
         ViewPagerAdapter ViewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
 
         ViewPagerAdapter.addFragment(RayonnageFragment.getInstance(),"Roayonnage");
-        ViewPagerAdapter.addFragment(DechargementFragment.getInstance(),"Déchargement");
+        ViewPagerAdapter.addFragment(TransfertFragment.getInstance(),"Transfert");
 
         viewPager.setAdapter(ViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);

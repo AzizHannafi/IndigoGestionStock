@@ -27,10 +27,12 @@ import com.example.indigogestionstock.Models.Item;
 import com.example.indigogestionstock.Models.PurchaseLine;
 import com.example.indigogestionstock.Models.PurchaseOrders;
 import com.example.indigogestionstock.R;
+import com.example.indigogestionstock.UserManager.UserSessionManager;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -39,22 +41,32 @@ import retrofit2.Response;
 
 
 public class ReceptionMpFragment extends Fragment {
+    LinearLayout  LinearLayoutDialogue;
     Dialog alertDialog;
+
     int capteurBtnCommande;
     int capteurBtnArticle;
     EditText code, designation, quantite, commande, fournissuer;
     Button btn, btnvalidate, btnCommande, btnValidateCommande, btnReceptionner, btnSend, btnRejet;
-    ImageView btnback;
+    ImageView btnback,confirme, cancel;
     ClientDynamicsWebService client;
     LinearLayout Linearlayoutdesignation;
     TextView message, titleDialogue;
     ImageView imageDialogue;
+
+    UserSessionManager session;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_reception_mp, container, false);
+        session = new UserSessionManager(getContext());
+        HashMap<String, String> user = session.getUserDetails();
+        //get element of sidebare header
+        String id = user.get(UserSessionManager.KEY_ID);
+
+
         capteurBtnArticle = 0;
         capteurBtnCommande = 0;
         client = new ClientDynamicsWebService();
@@ -63,6 +75,9 @@ public class ReceptionMpFragment extends Fragment {
         message = alertDialog.findViewById(R.id.messageError);
         imageDialogue = alertDialog.findViewById(R.id.imageDialogue);
         titleDialogue = alertDialog.findViewById(R.id.titleErrorMessage);
+        confirme = alertDialog.findViewById(R.id.Yes);
+        cancel = alertDialog.findViewById(R.id.no);
+        LinearLayoutDialogue=alertDialog.findViewById(R.id.linearLayoutDialogue);
 
 
         btnvalidate = v.findViewById(R.id.btnvalidate);
@@ -126,7 +141,7 @@ public class ReceptionMpFragment extends Fragment {
                     alertDialog.show();
                 } else {
 
-                    client.addToReject(commande.getText().toString(), code.getText().toString()).enqueue(new Callback<Void>() {
+                    client.addToReject(commande.getText().toString(), code.getText().toString(),id).enqueue(new Callback<Void>() {
                         @Override
                         public void onResponse(Call<Void> call, Response<Void> response) {
                             ErrorAlert("Ajouter a la liste de rejet", "Cette commande a été ajouter a la liste des rejet");
@@ -176,10 +191,12 @@ public class ReceptionMpFragment extends Fragment {
                 if (commande.getText().length() == 0) {
                     ErrorAlert("Echec", "Vous devez scanner le code a bare de la commande d'abord");
                     alertDialog.show();
+                    btnReceptionner.setVisibility(View.GONE);
                     //resetAlert();
                 } else if (quantite.getText().length() == 0) {
                     ErrorAlert("Echec", "Vous devez ajouter la quantité le l'article");
                     alertDialog.show();
+                    btnReceptionner.setVisibility(View.GONE);
                     //resetAlert();
                 } else {
                     client.getOnePurchaseOrders(commande.getText().toString()).enqueue(new Callback<PurchaseOrders>() {
@@ -196,11 +213,13 @@ public class ReceptionMpFragment extends Fragment {
                                 ChechedAlert("Article Vérifié", "La quantité a expédié est conforme avec la quantité reçue");
                                 alertDialog.show();
                                 btnReceptionner.setVisibility(View.VISIBLE);
+                                btnRejet.setVisibility(View.INVISIBLE);
                                 //resetAlert();
                             } else {
                                 ErrorAlert("Echec", "La quantité a expédié n'est pas conforme avec la quantité reçue");
                                 alertDialog.show();
                                 btnReceptionner.setVisibility(View.GONE);
+                                btnRejet.setVisibility(View.VISIBLE);
                                 //resetAlert();
                             }
                         }
@@ -248,10 +267,17 @@ public class ReceptionMpFragment extends Fragment {
                 });
             }
         });
-
-        btnReceptionner.setOnClickListener(new View.OnClickListener() {
+        cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        confirme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LinearLayoutDialogue.setVisibility(View.GONE);
                 if (commande.getText().length() == 0) {
                     ErrorAlert("Echec", "Vous devez scanner une commande");
                     alertDialog.show();
@@ -271,12 +297,25 @@ public class ReceptionMpFragment extends Fragment {
                                 alertDialog.show();
 
                             } else {
-                                ChechedAlert("Réception réussite", "La quantité a expédié est conforme avec quantité reçue");
-                                alertDialog.show();
+                                //ChechedAlert("Réception réussite", "La quantité a expédié est conforme avec quantité reçue");
+                                alertDialog.dismiss();
                                 client.updateStatus(response.body().getNo().toString(), "1").enqueue(new Callback<Void>() {
                                     @Override
                                     public void onResponse(Call<Void> call, Response<Void> response) {
                                         System.out.println("Status updated");
+                                        client.addtoReception(commande.getText().toString(),
+                                                              code.getText().toString(),
+                                                              id).enqueue(new Callback<Void>() {
+                                            @Override
+                                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                                System.out.println("Ligne ajouter ");
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Void> call, Throwable t) {
+                                                System.out.println(t.getMessage());
+                                            }
+                                        });
                                     }
 
                                     @Override
@@ -296,6 +335,14 @@ public class ReceptionMpFragment extends Fragment {
                 }
 
             }
+        });
+        btnReceptionner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ErrorAlert("Receptionner","Vous éte sur vous voulez receptionner cette commande");
+                LinearLayoutDialogue.setVisibility(View.VISIBLE);
+                alertDialog.show();
+              }
         });
         return v;
     }

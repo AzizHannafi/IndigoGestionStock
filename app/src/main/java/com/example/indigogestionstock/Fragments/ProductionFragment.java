@@ -28,28 +28,30 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RayonnageFragment extends Fragment {
-    EditText code;
-    Button btn, btnnValidate;
+public class ProductionFragment extends Fragment {
+    EditText code ;
+    Button btn ;
+
+
+    Button btnnValidate;
     Dialog alertDialog;
-    ClientDynamicsWebService client;
-    TextView description, stock, rayon, UnitéDeMesure;
     TextView message, titleDialogue;
+    TextView description, stock, UnitéDeMesure;
     ImageView imageDialogue;
-    LinearLayout LLdescription,LLStock,LLRayon,LLUM;
+    ClientDynamicsWebService client;
+    LinearLayout LLdescription, LLStock, LLUM;
 
-    public static RayonnageFragment getInstance() {
-        RayonnageFragment RayonnageFragment = new RayonnageFragment();
-        return RayonnageFragment;
+    public  static ProductionFragment getInstance(){
+        ProductionFragment ProductionFragment =new ProductionFragment();
+        return ProductionFragment;
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_rayonnage, container, false);
-        code = v.findViewById(R.id.qrt);
-        btn = v.findViewById(R.id.qr);
+         View v =inflater.inflate(R.layout.fragment_production, container, false);
+
+
         alertDialog = new Dialog(getContext());
         alertDialog.setContentView(R.layout.error_message);
         btnnValidate = v.findViewById(R.id.btnvalidateCmd);
@@ -59,12 +61,13 @@ public class RayonnageFragment extends Fragment {
         client = new ClientDynamicsWebService();
         description = v.findViewById(R.id.description);
         stock = v.findViewById(R.id.stock);
-        rayon = v.findViewById(R.id.rayon);
         UnitéDeMesure = v.findViewById(R.id.UnitéDeMesure);
-        LLdescription=v.findViewById(R.id.LLdescription);
-        LLStock=v.findViewById(R.id.LLStock);
-        LLRayon= v.findViewById(R.id.LLRayon);
-        LLUM=v.findViewById(R.id.LLUM);
+        LLdescription = v.findViewById(R.id.LLdescription);
+        LLStock = v.findViewById(R.id.LLStock);
+        LLUM = v.findViewById(R.id.LLUM);
+
+        code = v.findViewById(R.id.qrt);
+        btn = v.findViewById(R.id.qr);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +79,7 @@ public class RayonnageFragment extends Fragment {
         btnnValidate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                client.getOneItemWithShelf(code.getText().toString()).enqueue(new Callback<Item>() {
+                client.GetBilanSalesOneItem(code.getText().toString()).enqueue(new Callback<Item>() {
                     @Override
                     public void onResponse(Call<Item> call, Response<Item> response) {
                         if (code.getText().length() == 0) {
@@ -84,7 +87,6 @@ public class RayonnageFragment extends Fragment {
                             alertDialog.show();
                             LLdescription.setVisibility(View.GONE);
                             LLStock.setVisibility(View.GONE);
-                            LLRayon.setVisibility(View.GONE);
                             LLUM.setVisibility(View.GONE);
 
                         } else if (response.body().getNo().toString().equals("null")) {
@@ -92,48 +94,44 @@ public class RayonnageFragment extends Fragment {
                             alertDialog.show();
                             LLdescription.setVisibility(View.GONE);
                             LLStock.setVisibility(View.GONE);
-                            LLRayon.setVisibility(View.GONE);
                             LLUM.setVisibility(View.GONE);
-                        } else {
+                        }else {
                             LLdescription.setVisibility(View.VISIBLE);
                             LLStock.setVisibility(View.VISIBLE);
-                            LLRayon.setVisibility(View.VISIBLE);
                             LLUM.setVisibility(View.VISIBLE);
                             description.setText(response.body().getDescription());
                             stock.setText(response.body().getInventory());
-                            rayon.setText(response.body().getShelf_No());
                             UnitéDeMesure.setText(response.body().getBase_Unit_of_Measure());
+                            ChechedAlert("Bilan","Vous avez vendu "+response.body().getInventory()+"unité(es) de l'article '"+response.body().getDescription()+"'");
+                            alertDialog.show();
                         }
                     }
 
                     @Override
                     public void onFailure(Call<Item> call, Throwable t) {
-                        System.out.println(t.getMessage());
+
                     }
                 });
             }
         });
-
         return v;
     }
-
     public void scancode() {
         IntentIntegrator integrator = new IntentIntegrator(getActivity());
         integrator.setCaptureActivity(CaptureAct.class);
         integrator.setPrompt("Scanner le code-barres");
         integrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         IntentIntegrator.forSupportFragment(this).initiateScan();
-
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult ( int requestCode, int resultCode, Intent data){
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
             if (result.getContents() != null) {
                 code.setText(result.getContents());
             } else {
-                Toast.makeText(getContext(), "échec", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "échec" , Toast.LENGTH_LONG).show();
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -155,6 +153,5 @@ public class RayonnageFragment extends Fragment {
         message.setTextColor(Color.rgb(178, 34, 34));
         imageDialogue.setBackgroundResource(R.drawable.alert);
     }
-
 
 }

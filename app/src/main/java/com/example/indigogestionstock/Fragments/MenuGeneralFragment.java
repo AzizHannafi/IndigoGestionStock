@@ -1,5 +1,7 @@
 package com.example.indigogestionstock.Fragments;
 
+import android.app.Dialog;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.cardview.widget.CardView;
@@ -8,85 +10,161 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.indigogestionstock.Data.ClientDynamicsWebService;
+import com.example.indigogestionstock.Models.User;
 import com.example.indigogestionstock.R;
+import com.example.indigogestionstock.UserManager.UserSessionManager;
 
-public class MenuGeneralFragment extends Fragment  {
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class MenuGeneralFragment extends Fragment {
+    UserSessionManager session;
+    ClientDynamicsWebService client;
+    Dialog alertDialog;
+    TextView message, titleDialogue;
+    ImageView imageDialogue;
+    public int postUser = -1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-         View v=inflater.inflate(R.layout.fragment_menu_general, container, false);
+        View v = inflater.inflate(R.layout.fragment_menu_general, container, false);
 
-         CardView consommatioDeclaration,
-                 receptionMp,
-                 Transfert,
-                 rengementpalette,
-                 PreparationCommnade,
-                 gestionQualite,
-                 chargementCamion;
+        alertDialog = new Dialog(getContext());
+        alertDialog.setContentView(R.layout.error_message);
 
-         consommatioDeclaration=(CardView)v.findViewById(R.id.consommatioDeclaration);
-         receptionMp=(CardView)v.findViewById(R.id.receptionMp);
-         Transfert=(CardView)v.findViewById(R.id.Transfert);
-         rengementpalette=(CardView)v.findViewById(R.id.rengementpalette);
-         PreparationCommnade=(CardView)v.findViewById(R.id.PreparationCommnade);
-         gestionQualite=(CardView)v.findViewById(R.id.gestionQualite);
-         chargementCamion=(CardView)v.findViewById(R.id.chargementCamion);
+        message = alertDialog.findViewById(R.id.messageError);
+        imageDialogue = alertDialog.findViewById(R.id.imageDialogue);
+        titleDialogue = alertDialog.findViewById(R.id.titleErrorMessage);
+        client = new ClientDynamicsWebService();
+        session = new UserSessionManager(getContext());
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+        //get element of sidebare header
+        String id = user.get(UserSessionManager.KEY_ID);
 
-         consommatioDeclaration.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 ConsommationDeclarationFragment consommationDeclarationFragment =new ConsommationDeclarationFragment();
-                 getFragmentManager().beginTransaction().replace(R.id.fragment_container, consommationDeclarationFragment).commit();
-             }
-         });
+        client.getUserByID(id).enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                postUser = Integer.parseInt(response.body().getPostUser());
+
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                System.out.println(t.getMessage());
+            }
+        });
+
+        CardView consommatioDeclaration,
+                receptionMp,
+                rengementpalette,
+                PreparationCommnade,
+                gestionQualite;
+
+
+        consommatioDeclaration = (CardView) v.findViewById(R.id.consommatioDeclaration);
+        receptionMp = (CardView) v.findViewById(R.id.receptionMp);
+
+        rengementpalette = (CardView) v.findViewById(R.id.rengementpalette);
+        PreparationCommnade = (CardView) v.findViewById(R.id.PreparationCommnade);
+        gestionQualite = (CardView) v.findViewById(R.id.gestionQualite);
+        //  chargementCamion = (CardView) v.findViewById(R.id.chargementCamion);
+
+        consommatioDeclaration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (postUser >= 2) {
+                    ConsommationDeclarationFragment consommationDeclarationFragment = new ConsommationDeclarationFragment();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, consommationDeclarationFragment).commit();
+                } else {
+                    ErrorAlert("Non authorisé", "Vous n'êtes pas autorisé à accéder à cette fonctionnalité");
+                    alertDialog.show();
+                }
+
+
+            }
+        });
         receptionMp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ReceptionMpFragment receptionMpFragment =new ReceptionMpFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, receptionMpFragment).commit();
+                if (postUser >= 1) {
+                    ReceptionMpFragment receptionMpFragment = new ReceptionMpFragment();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, receptionMpFragment).commit();
+                } else {
+                    ErrorAlert("Non authorisé", "Vous n'êtes pas autorisé à accéder à cette fonctionnalité");
+                    alertDialog.show();
+                }
+
+
             }
         });
-        Transfert.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TransfertFragment transfertFragment =new TransfertFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, transfertFragment).commit();
-            }
-        });
+
         rengementpalette.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RengementPaletteFragment rengementPaletteFragment =new RengementPaletteFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, rengementPaletteFragment).commit();
+                if (postUser >= 1) {
+                    RengementPaletteFragment rengementPaletteFragment = new RengementPaletteFragment();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, rengementPaletteFragment).commit();
+                } else {
+                    ErrorAlert("Non authorisé", "Vous n'êtes pas autorisé à accéder à cette fonctionnalité");
+                    alertDialog.show();
+                }
+
             }
         });
         PreparationCommnade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreparationCommnadeFragment preparationCommnadeFragment =new PreparationCommnadeFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, preparationCommnadeFragment).commit();
+                if (postUser >= 3) {
+                    PreparationCommnadeFragment preparationCommnadeFragment = new PreparationCommnadeFragment();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, preparationCommnadeFragment).commit();
+                }else {
+                    ErrorAlert("Non authorisé", "Vous n'êtes pas autorisé à accéder à cette fonctionnalité");
+                    alertDialog.show();
+                }
             }
+
         });
         gestionQualite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GestionQualiteFragment gestionQualiteFragment =new GestionQualiteFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, gestionQualiteFragment).commit();
+                if (postUser >= 3) {
+                    GestionQualiteFragment gestionQualiteFragment = new GestionQualiteFragment();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, gestionQualiteFragment).commit();
+                }else {
+                    ErrorAlert("Non authorisé", "Vous n'êtes pas autorisé à accéder à cette fonctionnalité");
+                    alertDialog.show();
+                }
+
             }
         });
-        chargementCamion.setOnClickListener(new View.OnClickListener() {
+       /* chargementCamion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChargementCamionFragment chargementCamionFragment =new ChargementCamionFragment();
+                ChargementCamionFragment chargementCamionFragment = new ChargementCamionFragment();
                 getFragmentManager().beginTransaction().replace(R.id.fragment_container, chargementCamionFragment).commit();
             }
-        });
+        });*/
 
-         return v;
+        return v;
+    }
+
+    public void ErrorAlert(String title, String bodyAlert) {
+        titleDialogue.setText(title);
+        titleDialogue.setTextColor(Color.rgb(178, 34, 34));
+        message.setText(bodyAlert);
+        message.setTextColor(Color.rgb(178, 34, 34));
+        imageDialogue.setBackgroundResource(R.drawable.alert);
     }
 
 

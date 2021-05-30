@@ -24,7 +24,20 @@ public class User {
     @Expose
     private String LocationCode;
 
+    @SerializedName("postUser")
+    @Expose
+    private String postUser;
+
     public User() {
+    }
+
+    public User(String id, String username, String lastname, String password, String locationCode, String postUser) {
+        this.id = id;
+        Username = username;
+        Lastname = lastname;
+        Password = password;
+        LocationCode = locationCode;
+        this.postUser = postUser;
     }
 
     public User(String id, String username, String lastname, String password, String locationCode) {
@@ -73,5 +86,13 @@ public class User {
 
     public void setLocationCode(String locationCode) {
         LocationCode = locationCode;
+    }
+
+    public String getPostUser() {
+        return postUser;
+    }
+
+    public void setPostUser(String postUser) {
+        this.postUser = postUser;
     }
 }

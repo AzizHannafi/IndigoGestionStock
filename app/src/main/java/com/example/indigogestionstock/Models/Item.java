@@ -24,8 +24,20 @@ public class Item {
     @Expose
     String Base_Unit_of_Measure;
 
+    @SerializedName("shelf_No")
+    @Expose
+    String  Shelf_No;
     public Item() {
         super();
+    }
+
+    public Item(String key, String no, String description, String inventory, String base_Unit_of_Measure, String shelf_No) {
+        Key = key;
+        No = no;
+        Description = description;
+        Inventory = inventory;
+        Base_Unit_of_Measure = base_Unit_of_Measure;
+        Shelf_No = shelf_No;
     }
 
     public Item(String key, String no, String description, String inventory,
@@ -76,5 +88,13 @@ public class Item {
 
     public void setBase_Unit_of_Measure(String base_Unit_of_Measure) {
         Base_Unit_of_Measure = base_Unit_of_Measure;
+    }
+
+    public String getShelf_No() {
+        return Shelf_No;
+    }
+
+    public void setShelf_No(String shelf_No) {
+        Shelf_No = shelf_No;
     }
 }

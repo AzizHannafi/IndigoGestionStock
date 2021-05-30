@@ -253,6 +253,7 @@
                         android:orientation="vertical">
 
                         <Button
+                            android:visibility="gone"
                             android:id="@+id/btnReceptionner"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -260,6 +261,7 @@
                             android:layout_marginRight="30dp"
                             android:text="Réceptionner " />
                         <Button
+                            android:visibility="gone"
                             android:id="@+id/btnRejet"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

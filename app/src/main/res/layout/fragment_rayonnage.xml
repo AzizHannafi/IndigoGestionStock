@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.RayonnageFragment">
 
     <LinearLayout
@@ -13,7 +13,6 @@
         android:orientation="vertical">
 
 
-
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -27,54 +26,46 @@
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/article"
-                    android:textSize="20dp" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/qr"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/codeabarre" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/article"
+                        android:textSize="20dp" />
 
-                    <EditText
-                        android:id="@+id/qrt"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:hint="@string/scanner_le_code"
-                        android:inputType="number" />
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/qr"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/codeabarre" />
+
+                        <EditText
+                            android:id="@+id/qrt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:hint="@string/scanner_le_code"
+                            android:inputType="text" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
-
-
-
 
                 <LinearLayout
+                    android:id="@+id/LLdescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -83,19 +74,22 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/site"
+                        android:text="Description"
                         android:textSize="20dp" />
 
-                    <EditText
-                        android:id="@+id/site"
+                    <TextView
+                        android:id="@+id/description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/LLStock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -104,71 +98,80 @@
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Emplacement"
+                        android:text="Stock"
                         android:textSize="20dp" />
 
-                    <EditText
-                        android:id="@+id/emplacement"
+                    <TextView
+                        android:id="@+id/stock"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/LLRayon"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/um"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/rayon"
                         android:textSize="20dp" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/rayon"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:id="@+id/linearLayoutMessage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/T12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/message"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/t13"
+                <LinearLayout
+                    android:id="@+id/LLUM"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unité de Mesure"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/UnitéDeMesure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnvalidateCmd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="30dp"
+                    android:text="@string/valider" />
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
 </FrameLayout>

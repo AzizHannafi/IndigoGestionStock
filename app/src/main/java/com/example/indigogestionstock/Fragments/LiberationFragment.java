@@ -23,9 +23,11 @@ import com.example.indigogestionstock.Models.PurchaseLine;
 import com.example.indigogestionstock.Models.PurchaseOrders;
 import com.example.indigogestionstock.Models.Rejet;
 import com.example.indigogestionstock.R;
+import com.example.indigogestionstock.UserManager.UserSessionManager;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -40,9 +42,11 @@ public class LiberationFragment extends Fragment {
     int capteurBtnCommande;
     int capteurBtnArticle;
     Dialog alertDialog;
-    TextView message, titleDialogue, btnRecptionner;
+    TextView message, titleDialogue, btnRecptionner,btnReceptionner;
     ImageView imageDialogue, confirme, cancel;
     ClientDynamicsWebService client;
+
+    UserSessionManager session;
 
     public static LiberationFragment getInstance() {
         LiberationFragment LiberationFragment = new LiberationFragment();
@@ -54,6 +58,12 @@ public class LiberationFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_liberation, container, false);
+
+
+        session = new UserSessionManager(getContext());
+        HashMap<String, String> user = session.getUserDetails();
+        //get element of sidebare header
+        String id = user.get(UserSessionManager.KEY_ID);
 
         // Inflate the layout for this fragment
         client = new ClientDynamicsWebService();
@@ -77,6 +87,8 @@ public class LiberationFragment extends Fragment {
 
         designation = v.findViewById(R.id.designation);
         LinearLayoutDesignation = v.findViewById(R.id.LinearLayoutDesignation);
+
+        btnRecptionner=v.findViewById(R.id.btnReceptionner);
 
         btnCommande.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +132,19 @@ public class LiberationFragment extends Fragment {
                                     LinearLayoutDialogue.setVisibility(View.GONE);
                                     ChechedAlert("Reception", "La commande " + commande.getText().toString() + " a été receptionner avec succès");
                                     alertDialog.show();
+                                    client.addtoReception(commande.getText().toString(),
+                                            code.getText().toString(),
+                                            id).enqueue(new Callback<Void>() {
+                                        @Override
+                                        public void onResponse(Call<Void> call, Response<Void> response) {
+                                            System.out.println("ligne ajouter");
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Void> call, Throwable t) {
+                                            System.out.println(t.getMessage());
+                                        }
+                                    });
                                 }
 
                                 @Override
@@ -151,6 +176,7 @@ public class LiberationFragment extends Fragment {
         btnvalidateCmd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LinearLayoutDialogue.setVisibility(View.GONE);
                 if ((commande.getText().toString().length() == 0) || (code.getText().toString().length() == 0)) {
                     ErrorAlert("Echec", "Vous devez saisir le code a barre de la commande et de l'article");
                     LinearLayoutDesignation.setVisibility(View.INVISIBLE);
@@ -205,8 +231,11 @@ public class LiberationFragment extends Fragment {
                 }
             }
         });
+
+
         return v;
     }
+
 
     public void scancode() {
         IntentIntegrator integrator = new IntentIntegrator(getActivity());

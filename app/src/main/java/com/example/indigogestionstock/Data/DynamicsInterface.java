@@ -60,6 +60,18 @@ public interface DynamicsInterface {
     @GET("Items/GetOne/{idItem}")
     Call<Item> getOneItem(@Path(value = "idItem", encoded = true) String idItem);
 
+    @POST("Items/GetOneWithShelf/{idItem}")
+    Call<Item> GetOneWithShelf(@Path(value = "idItem", encoded = true) String idItem);
+
+    @PUT("Items/GetBilanPurchaseOneItem/{idItem}/{idEmplacement}")
+    Call<Void> updateEmplacement(@Path(value = "idItem", encoded = true) String idItem,@Path(value = "idEmplacement", encoded = true) String idEmplacement);
+
+    @GET("Items/GetBilanPurchaseOneItem/{idItem}")
+    Call<Item> GetBilanPurchaseOneItem(@Path(value = "idItem", encoded = true) String idItem);
+
+    @GET("Items/GetBilanSalesOneItem/{idItem}")
+    Call<Item> GetBilanSalesOneItem(@Path(value = "idItem", encoded = true) String idItem);
+
     //**********************************************Login*****************************************//
     @POST("Users/Login")
     Call<User> login(@Body User user);
@@ -67,8 +79,20 @@ public interface DynamicsInterface {
     @POST("Users/GetUserByID/{idUser}")
     Call<User> getUserByID(@Path(value = "idUser", encoded = true) String idUser);
     //**********************************************Reject crud*****************************************//
-    @POST("Rejet/add/{idCommande}/{idItem}")
-    Call<Void> addToReject(@Path(value = "idCommande", encoded = true) String idCommande,@Path(value = "idItem", encoded = true) String idItem);
+    @POST("Rejet/add/{idCommande}/{idItem}/{IDUser}")
+    Call<Void> addToReject(@Path(value = "idCommande", encoded = true) String idCommande,
+                           @Path(value = "idItem", encoded = true) String idItem,
+                           @Path(value = "IDUser", encoded = true) String IDUser);
+
+    @POST("Reception/add/{idCommande}/{idItem}/{IDUser}")
+    Call<Void> addToRecption(@Path(value = "idCommande", encoded = true) String idCommande,
+                           @Path(value = "idItem", encoded = true) String idItem,
+                           @Path(value = "IDUser", encoded = true) String IDUser);
+
+    @POST("Supprimer/add/{idCommande}/{idItem}/{IDUser}")
+    Call<Void> addToDelete(@Path(value = "idCommande", encoded = true) String idCommande,
+                             @Path(value = "idItem", encoded = true) String idItem,
+                             @Path(value = "IDUser", encoded = true) String IDUser);
 
     @POST("Rejet/GetOne")
     Call<Rejet> getOneRejet(@Body Rejet rejet);

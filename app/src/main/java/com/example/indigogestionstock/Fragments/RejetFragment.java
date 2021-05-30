@@ -24,9 +24,11 @@ import com.example.indigogestionstock.Models.PurchaseLine;
 import com.example.indigogestionstock.Models.PurchaseOrders;
 import com.example.indigogestionstock.Models.Rejet;
 import com.example.indigogestionstock.R;
+import com.example.indigogestionstock.UserManager.UserSessionManager;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -44,6 +46,7 @@ public class RejetFragment extends Fragment {
     TextView message, titleDialogue;
     ImageView imageDialogue, confirme, cancel,delete;
     ClientDynamicsWebService client;
+    UserSessionManager session;
 
     public static RejetFragment getInstance() {
         RejetFragment RejetFragment = new RejetFragment();
@@ -53,6 +56,11 @@ public class RejetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        session = new UserSessionManager(getContext());
+        HashMap<String, String> user = session.getUserDetails();
+        //get element of sidebare header
+        String id = user.get(UserSessionManager.KEY_ID);
 
         // Inflate the layout for this fragment
         client = new ClientDynamicsWebService();
@@ -113,10 +121,11 @@ public class RejetFragment extends Fragment {
         confirme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LinearLayoutDialogue.setVisibility(View.GONE);
                 client.getOnePurchaseOrders(commande.getText().toString()).enqueue(new Callback<PurchaseOrders>() {
                     @Override
                     public void onResponse(Call<PurchaseOrders> call, Response<PurchaseOrders> response) {
-                        if (response.body().getNo().equals("Null")){
+                        if (response.body().getNo().equals("null")){
                             LinearLayoutDialogue.setVisibility(View.GONE);
                             ErrorAlert("Echec","Commande introuvale");
                             alertDialog.show();
@@ -127,8 +136,21 @@ public class RejetFragment extends Fragment {
                                 @Override
                                 public void onResponse(Call<Void> call, Response<Void> response) {
                                     LinearLayoutDialogue.setVisibility(View.GONE);
-                                    ChechedAlert("Suppression ","Commande supprimer  avec succés");
+                                    ChechedAlert("Suppression ","Commande a été supprimer avec succés");
                                     alertDialog.show();
+                                    client.addToDelete(commande.getText().toString(),
+                                                       code.getText().toString(),
+                                                       id).enqueue(new Callback<Void>() {
+                                        @Override
+                                        public void onResponse(Call<Void> call, Response<Void> response) {
+                                            System.out.println("Ligne Ajouter");
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Void> call, Throwable t) {
+                                            System.out.println(t.getMessage());
+                                        }
+                                    });
                                 }
 
                                 @Override

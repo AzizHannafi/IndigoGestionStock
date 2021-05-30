@@ -11,44 +11,6 @@
         android:layout_margin="20dp"
         android:orientation="vertical">
 
-        <androidx.cardview.widget.CardView
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/nof"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="N.OF"
-                        android:textSize="20dp" />
-
-                    <EditText
-                        android:id="@+id/noft"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:inputType="text" />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -63,108 +25,129 @@
                 android:layout_margin="10dp"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/article"
-                    android:textSize="20dp" />
-
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
 
-                    <Button
-                        android:id="@+id/qr"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/codeabarre" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/article"
+                        android:textSize="20dp" />
 
-                    <EditText
-                        android:id="@+id/qrt"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:hint="@string/scanner_le_code"
-                        android:inputType="number" />
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/qr"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/codeabarre" />
+
+                        <EditText
+                            android:id="@+id/qrt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:hint="@string/scanner_le_code"
+                            android:inputType="text" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
+
                 <LinearLayout
+                    android:id="@+id/LLdescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/T9"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Désignation"
+                        android:text="Description"
                         android:textSize="20dp" />
 
-                    <EditText
-                        android:id="@+id/t10"
+                    <TextView
+                        android:id="@+id/description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/LLStock"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/T11"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/quantit"
+                        android:text="Quantité Achetée"
                         android:textSize="20dp" />
 
-                    <EditText
-                        android:id="@+id/t11"
+                    <TextView
+                        android:id="@+id/stock"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:inputType="text" />
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
 
                 </LinearLayout>
 
-            </LinearLayout>
 
-        </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:cardCornerRadius="8dp"
-            app:cardElevation="8dp">
-
-            <LinearLayout
-                android:id="@+id/linearLayoutMessage"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:visibility="gone">
-
-                <TextView
-                    android:id="@+id/T12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/message"
-                    android:textSize="20dp" />
-
-                <TextView
-                    android:id="@+id/t13"
+                <LinearLayout
+                    android:id="@+id/LLUM"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Unité de Mesure"
+                        android:textSize="20dp" />
+
+                    <TextView
+                        android:id="@+id/UnitéDeMesure"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:inputType="text"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnvalidateCmd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="30dp"
+                    android:text="@string/valider" />
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 </FrameLayout>

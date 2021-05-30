@@ -21,4 +21,37 @@
     <string name="transporteur">Transporteur</string>
     <string name="valider">Valider</string>
     <string name="scannrer_le_code_a_barre">scanner ou saisir le code a barre de la commande</string>
+
+    <string-array name="Rayon">
+        <item>A 1</item>
+        <item>A 2</item>
+        <item>A 3</item>
+        <item>A 4</item>
+        <item>A 5</item>
+        <item>B 1</item>
+        <item>B 2</item>
+        <item>B 3</item>
+        <item>B 4</item>
+        <item>B 5</item>
+        <item>C 1</item>
+        <item>C 2</item>
+        <item>C 3</item>
+        <item>C 4</item>
+        <item>C 5</item>
+        <item>D 1</item>
+        <item>D 2</item>
+        <item>D 3</item>
+        <item>D 4</item>
+        <item>D 5</item>
+        <item>E 1</item>
+        <item>E 2</item>
+        <item>E 3</item>
+        <item>E 4</item>
+        <item>E 5</item>
+        <item>F 1</item>
+        <item>F 2</item>
+        <item>F 3</item>
+        <item>F 4</item>
+        <item>F 5</item>
+    </string-array>
 </resources>
