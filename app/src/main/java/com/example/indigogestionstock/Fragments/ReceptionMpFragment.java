@@ -69,6 +69,7 @@ public class ReceptionMpFragment extends Fragment {
 
         capteurBtnArticle = 0;
         capteurBtnCommande = 0;
+
         client = new ClientDynamicsWebService();
         alertDialog = new Dialog(getContext());
         alertDialog.setContentView(R.layout.error_message);

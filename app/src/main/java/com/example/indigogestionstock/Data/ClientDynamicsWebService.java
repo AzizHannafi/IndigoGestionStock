@@ -36,8 +36,8 @@ public class ClientDynamicsWebService {
     }
 
     //*********************************Sales order crud ************************************//
-    public Call<List<SalesOrder>> getAllSalesOrder() {
-        return dynamicsInterface.getAllSalesOrder();
+    public Call<List<SalesOrder>> getAllSalesOrder(String locationCode) {
+        return dynamicsInterface.getAllSalesOrder(locationCode);
     }
 
     public Call<SalesOrder> getOneSaleOrder(String id_Order) {
@@ -62,8 +62,8 @@ public class ClientDynamicsWebService {
     }
     //*********************************Purchase order crud ************************************//
 
-    public Call<List<PurchaseOrders>> getAllPurchaseOrders() {
-        return dynamicsInterface.getAllPurchaseOrders();
+    public Call<List<PurchaseOrders>> getAllPurchaseOrders(String locationCode) {
+        return dynamicsInterface.getAllPurchaseOrders(locationCode);
     }
 
     public Call<PurchaseOrders> getOnePurchaseOrders(String id_PurchaseOrder) {
@@ -118,6 +118,9 @@ public class ClientDynamicsWebService {
         return dynamicsInterface.addToDelete(idCommande, idItem,IDUser);
     }
 
+    public Call<Void> addToPreparetion( String IDUser,String idCommande) {
+        return dynamicsInterface.addToPreparetion(IDUser, idCommande);
+    }
 
     public Call<Rejet> getOneRejet(Rejet rejet) {
         return dynamicsInterface.getOneRejet(rejet);

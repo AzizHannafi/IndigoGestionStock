@@ -18,20 +18,46 @@ public class SalesOrder {
     @Expose
     private String         Sell_to_Customer_Name;
 
-
+    @SerializedName("posting_Description")
+    @Expose
     private String         Posting_Description;
+
+    @SerializedName("sell_to_Address")
+    @Expose
     private String         Sell_to_Address;
+
+    @SerializedName("sell_to_City")
+    @Expose
     private String         Sell_to_City;
+
+    @SerializedName("sell_to_County")
+    @Expose
     private String         Sell_to_County;
+
+    @SerializedName("order_Date")
+    @Expose
     private String         Order_Date;
+
+
+    @SerializedName("due_Date")
+    @Expose
     private String         Due_Date;
+
+    @SerializedName("prepayment_Due_Date")
+    @Expose
     private String         Prepayment_Due_Date;
+
+    @SerializedName("prepmt_Pmt_Discount_Date")
+    @Expose
     private String         Prepmt_Pmt_Discount_Date;
 
     @SerializedName("location_Code")
     @Expose
     private String         Location_Code;
 
+    @SerializedName("status")
+    @Expose
+    private String         Status;
 
     @SerializedName("salesLine")
     @Expose
@@ -41,6 +67,24 @@ public class SalesOrder {
 
     public SalesOrder() {
     }
+
+    public SalesOrder(String no, String sell_to_Customer_No, String sell_to_Customer_Name, String posting_Description, String sell_to_Address, String sell_to_City, String sell_to_County, String order_Date, String due_Date, String prepayment_Due_Date, String prepmt_Pmt_Discount_Date, String location_Code, String status, List<SalesLines> salesLines) {
+        No = no;
+        Sell_to_Customer_No = sell_to_Customer_No;
+        Sell_to_Customer_Name = sell_to_Customer_Name;
+        Posting_Description = posting_Description;
+        Sell_to_Address = sell_to_Address;
+        Sell_to_City = sell_to_City;
+        Sell_to_County = sell_to_County;
+        Order_Date = order_Date;
+        Due_Date = due_Date;
+        Prepayment_Due_Date = prepayment_Due_Date;
+        Prepmt_Pmt_Discount_Date = prepmt_Pmt_Discount_Date;
+        Location_Code = location_Code;
+        Status = status;
+        this.salesLines = salesLines;
+    }
+
     public SalesOrder(String no, String sell_to_Customer_No, String sell_to_Customer_Name, String posting_Description, String sell_to_Address, String sell_to_City, String sell_to_County, String order_Date, String due_Date, String prepayment_Due_Date, String prepmt_Pmt_Discount_Date, String location_Code, List<SalesLines> salesLines) {
         No = no;
         Sell_to_Customer_No = sell_to_Customer_No;
@@ -159,5 +203,13 @@ public class SalesOrder {
 
     public void setSalesLines(List<SalesLines> salesLines) {
         this.salesLines = salesLines;
+    }
+
+    public String getStatus() {
+        return Status;
+    }
+
+    public void setStatus(String status) {
+        Status = status;
     }
 }

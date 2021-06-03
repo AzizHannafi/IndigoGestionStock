@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">IndigoGestionStock</string>
     <string name="entrer">Entrer</string>
@@ -53,5 +54,41 @@
         <item>F 3</item>
         <item>F 4</item>
         <item>F 5</item>
+    </string-array>
+    <string-array name="Clients">
+        <item>"Spotsmeyer's Furnishings"</item>
+        <item>"Progressive Home Furnishings"</item>
+        <item>"New Concepts Furniture"</item>
+        <item>"Candoxy Canada Inc."</item>
+        <item>"Elkhorn Airport"</item>
+        <item>"London Candoxy Storage Campus"</item>
+        <item>"Metatorad Malaysia Sdn Bhd"</item>
+        <item>"TraxTonic Sdn Bhd"</item>
+        <item>"Somadis"</item>
+        <item>"ElectroMAROC"</item>
+        <item>"Zanlan Corp."</item>
+        <item>"Karoo Supermarkets"</item>
+        <item>"Durbandit Fruit Exporters"</item>
+        <item>"Woonboulevard Kuitenbrouwer"</item>
+        <item>"Meersen Meubelen"</item>
+        <item>"Candoxy Nederland BV"</item>
+        <item>"Nieuwe Zandpoort NV"</item>
+        <item>"Antarcticopy"</item>
+        <item>"Lovaina Contractors"</item>
+        <item>"Livre Importants"</item>
+        <item>"Bilabankinn"</item>
+        <item>"Gagn &amp; Gaman"</item>
+        <item>"Heimilisprydi"</item>
+        <item>"Deschamps"</item>
+        <item>"Candoxy Kontor A/S"</item>
+        <item>"Carl Anthony"</item>
+        <item>"Ravel Møbler"</item>
+        <item>"Lauritzen Kontormøbler A/S"</item>
+        <item>"Marsholm Karmstol"</item>
+        <item>"Konberg Tapet AB"</item>
+        <item>"Englunds Kontorsmöbler AB"</item>
+        <item>"Slubrevik Senger AS"</item>
+        <item>"Klubben"</item>
+        <item>"Sjøboden"</item>
     </string-array>
 </resources>

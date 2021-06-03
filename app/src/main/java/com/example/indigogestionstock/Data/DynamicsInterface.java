@@ -21,8 +21,8 @@ public interface DynamicsInterface {
     //********************************************Sales Order Crud***************************************//
 
     //Get  all sales order methode
-    @GET("SalesOrder/GetAll")
-    Call<List<SalesOrder>> getAllSalesOrder();
+    @GET("SalesOrder/GetAll/{locationCode}")
+    Call<List<SalesOrder>> getAllSalesOrder(@Path(value = "locationCode", encoded = true) String locationCode);
 
     //Get  a sales order by given id
     @GET("SalesOrder/GetOne/{id_saleOrder}")
@@ -30,32 +30,33 @@ public interface DynamicsInterface {
 
     //Get  all sales Released Order methode
     @GET("SalesOrder/GetAllReleasedOrder")
-    Call<SalesOrder>GetAllReleasedOrder();
+    Call<SalesOrder> GetAllReleasedOrder();
 
     //Get  all sales Open Order methode
     @GET("SalesOrder/GetAllOpenOrder")
-    Call<List<SalesOrder>>GetAllOpenOrder();
+    Call<List<SalesOrder>> GetAllOpenOrder();
 
     //**********************************************Sales lines Crud***********************************//
 
-    @HTTP(method = "DELETE",path = "SalesLine/DeleteSlaesLine",hasBody = true)
+    @HTTP(method = "DELETE", path = "SalesLine/DeleteSlaesLine", hasBody = true)
     Call<Void> DeleteSlaesLine(@Body Key key);
 
-    @HTTP(method = "DELETE",path = "PurchaseOrders/DeletePurchaseOrders",hasBody = true)
-    Call<Void> DeletePurchaseOrder(@Body Key key );
+    @HTTP(method = "DELETE", path = "PurchaseOrders/DeletePurchaseOrders", hasBody = true)
+    Call<Void> DeletePurchaseOrder(@Body Key key);
 
     //**********************************************Purchase Order Crud***********************************//
 
     //Get  PurchaseOrders  methode
-    @GET("PurchaseOrders/GetAll")
-    Call<List<PurchaseOrders>> getAllPurchaseOrders();
+    @GET("PurchaseOrders/GetAll/{locationCode}")
+    Call<List<PurchaseOrders>> getAllPurchaseOrders(@Path(value = "locationCode", encoded = true) String locationCode);
 
     //Get  one Purchase order by given id
     @GET("PurchaseOrders/GetOne/{id_PurchaseOrder}")
     Call<PurchaseOrders> getOnePurchaseOrders(@Path(value = "id_PurchaseOrder", encoded = true) String id_PurchaseOrder);
 
     @PUT("PurchaseOrders/UpdateStatus/{idPurchaseOrder}/{status}")
-    Call<Void> updateStatus(@Path(value = "idPurchaseOrder", encoded = true)String idPurchaseOrder,@Path(value = "status", encoded = true) String status);
+    Call<Void> updateStatus(@Path(value = "idPurchaseOrder", encoded = true) String idPurchaseOrder, @Path(value = "status", encoded = true) String status);
+
     //**********************************************Items Crud***********************************//
     @GET("Items/GetOne/{idItem}")
     Call<Item> getOneItem(@Path(value = "idItem", encoded = true) String idItem);
@@ -63,8 +64,8 @@ public interface DynamicsInterface {
     @POST("Items/GetOneWithShelf/{idItem}")
     Call<Item> GetOneWithShelf(@Path(value = "idItem", encoded = true) String idItem);
 
-    @PUT("Items/GetBilanPurchaseOneItem/{idItem}/{idEmplacement}")
-    Call<Void> updateEmplacement(@Path(value = "idItem", encoded = true) String idItem,@Path(value = "idEmplacement", encoded = true) String idEmplacement);
+    @PUT("Items/updateEmplacement/{idItem}/{idEmplacement}")
+    Call<Void> updateEmplacement(@Path(value = "idItem", encoded = true) String idItem, @Path(value = "idEmplacement", encoded = true) String idEmplacement);
 
     @GET("Items/GetBilanPurchaseOneItem/{idItem}")
     Call<Item> GetBilanPurchaseOneItem(@Path(value = "idItem", encoded = true) String idItem);
@@ -78,6 +79,7 @@ public interface DynamicsInterface {
 
     @POST("Users/GetUserByID/{idUser}")
     Call<User> getUserByID(@Path(value = "idUser", encoded = true) String idUser);
+
     //**********************************************Reject crud*****************************************//
     @POST("Rejet/add/{idCommande}/{idItem}/{IDUser}")
     Call<Void> addToReject(@Path(value = "idCommande", encoded = true) String idCommande,
@@ -86,13 +88,18 @@ public interface DynamicsInterface {
 
     @POST("Reception/add/{idCommande}/{idItem}/{IDUser}")
     Call<Void> addToRecption(@Path(value = "idCommande", encoded = true) String idCommande,
-                           @Path(value = "idItem", encoded = true) String idItem,
-                           @Path(value = "IDUser", encoded = true) String IDUser);
+                             @Path(value = "idItem", encoded = true) String idItem,
+                             @Path(value = "IDUser", encoded = true) String IDUser);
 
     @POST("Supprimer/add/{idCommande}/{idItem}/{IDUser}")
     Call<Void> addToDelete(@Path(value = "idCommande", encoded = true) String idCommande,
-                             @Path(value = "idItem", encoded = true) String idItem,
-                             @Path(value = "IDUser", encoded = true) String IDUser);
+                           @Path(value = "idItem", encoded = true) String idItem,
+                           @Path(value = "IDUser", encoded = true) String IDUser);
+
+
+    @POST("Preparation/add/{IDUser}/{idItem}")
+    Call<Void> addToPreparetion(@Path(value = "IDUser", encoded = true) String IDUser,
+                                @Path(value = "idItem", encoded = true) String idItem);
 
     @POST("Rejet/GetOne")
     Call<Rejet> getOneRejet(@Body Rejet rejet);
