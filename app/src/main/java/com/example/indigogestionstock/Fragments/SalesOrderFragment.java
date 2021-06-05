@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +21,10 @@ import com.example.indigogestionstock.Adapters.SalesOrderAdapter;
 import com.example.indigogestionstock.Data.ClientDynamicsWebService;
 import com.example.indigogestionstock.Models.SalesOrder;
 import com.example.indigogestionstock.Models.User;
+import com.example.indigogestionstock.PagerAdapter.ViewPagerAdapter;
 import com.example.indigogestionstock.R;
 import com.example.indigogestionstock.UserManager.UserSessionManager;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,19 +37,9 @@ import retrofit2.Response;
 
 public class SalesOrderFragment extends Fragment {
 
-    private RecyclerView recyclerViewSalesOrder;
-    private RecyclerView.LayoutManager layoutManager;
-    ClientDynamicsWebService client;
-    public User userInfo = new User();
+    TabLayout tabLayout;
+    ViewPager viewPager;
     ImageView btnback;
-    UserSessionManager session;
-    //String locationCode="null" ;
-    Dialog alertDialog;
-    TextView message, titleDialogue;
-    ImageView imageDialogue;
-
-    //Context context;
-    List<SalesOrder> listso = new ArrayList<SalesOrder>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,53 +47,17 @@ public class SalesOrderFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_sales_order, container, false);
 
-        session = new UserSessionManager(getContext());
-        HashMap<String, String> user = session.getUserDetails();
-        //get element of sidebare header
-        String id = user.get(UserSessionManager.KEY_ID);
 
+        tabLayout=(TabLayout)v.findViewById(R.id.SalesOrderTabLayout);
+        viewPager=(ViewPager)v.findViewById(R.id.SalesOrderViewPager);
 
-        client = new ClientDynamicsWebService();
-        alertDialog = new Dialog(getContext());
-        alertDialog.setContentView(R.layout.error_message);
-        message = alertDialog.findViewById(R.id.messageError);
-        imageDialogue = alertDialog.findViewById(R.id.imageDialogue);
-        titleDialogue = alertDialog.findViewById(R.id.titleErrorMessage);
+        ViewPagerAdapter ViewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
 
+        ViewPagerAdapter.addFragment(ReleasedSalesOrderFragment.getInstance(),"Fermer");
+        ViewPagerAdapter.addFragment(OpenSalesOrderFragment.getInstance(),"Ouvert");
 
-        client.getUserByID(id).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                userInfo = response.body();
-                client.getAllSalesOrder(userInfo.getLocationCode().toString()).enqueue(new Callback<List<SalesOrder>>() {
-                    @Override
-                    public void onResponse(Call<List<SalesOrder>> call, Response<List<SalesOrder>> response) {
-
-                        listso = response.body();
-                        if (listso.size() == 0) {
-                            ErrorAlert("Pas de commande", "Cet intropot ne possède pas des commandes pour le moment");
-                            alertDialog.show();
-                        } else {
-                            recyclerViewSalesOrder = (RecyclerView) v.findViewById(R.id.recyclerViewsalesOrder);
-                            layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
-                            recyclerViewSalesOrder.setLayoutManager(layoutManager);
-                            SalesOrderAdapter salesOrderAdapter = new SalesOrderAdapter(getContext(), listso, getFragmentManager());
-                            recyclerViewSalesOrder.setAdapter(salesOrderAdapter);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<SalesOrder>> call, Throwable t) {
-                        Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-
-            }
-        });
+        viewPager.setAdapter(ViewPagerAdapter);
+        tabLayout.setupWithViewPager(viewPager);
         btnback = (ImageView) v.findViewById(R.id.btnBack);
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,15 +68,7 @@ public class SalesOrderFragment extends Fragment {
 
             }
         });
-
         return v;
     }
 
-    public void ErrorAlert(String title, String bodyAlert) {
-        titleDialogue.setText(title);
-        titleDialogue.setTextColor(Color.rgb(178, 34, 34));
-        message.setText(bodyAlert);
-        message.setTextColor(Color.rgb(178, 34, 34));
-        imageDialogue.setBackgroundResource(R.drawable.alert);
-    }
 }

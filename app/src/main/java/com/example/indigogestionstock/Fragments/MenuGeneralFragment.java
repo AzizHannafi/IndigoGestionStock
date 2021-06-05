@@ -125,7 +125,7 @@ public class MenuGeneralFragment extends Fragment {
         PreparationCommnade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (postUser >= 3) {
+                if (postUser >= 1) {
                     PreparationCommnadeFragment preparationCommnadeFragment = new PreparationCommnadeFragment();
                     getFragmentManager().beginTransaction().replace(R.id.fragment_container, preparationCommnadeFragment).commit();
                 }else {

@@ -191,7 +191,7 @@
                                     android:layout_width="232dp"
                                     android:layout_height="45dp"
                                     android:hint="@string/scanner_le_code"
-                                    android:inputType="number"
+                                    android:inputType="text"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintHorizontal_bias="0.496"

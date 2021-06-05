@@ -49,7 +49,7 @@ public class PreparationCommnadeFragment extends Fragment {
     int resultOfTables = 0;
     TextView description, btnPreparer;
     Boolean found = false;
-
+    String status;
 
     Dialog alertDialog;
     TextView message, titleDialogue;
@@ -226,43 +226,66 @@ public class PreparationCommnadeFragment extends Fragment {
         confirme.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (salesOrder.getStatus().toString().equals("Released")) {
-                    LinearLayoutDialogue.setVisibility(View.INVISIBLE);
-                    ErrorAlert("Echec Preparation ", "La Commande est Déjà préparer");
-                    alertDialog.show();
-                } else if (ConfirmesalesLinesList.size() == salesLinesList.size()) {
-                    for (int i = 0; i < salesLinesList.size(); i++) {
-                        for (int j = 0; j < ConfirmesalesLinesList.size(); j++) {
-                            if (ConfirmesalesLinesList.get(j) == salesLinesList.get(i)) {
-                                resultOfTables += 1;
-                            }
-                            if (resultOfTables == salesLinesList.size()) {
-                                client.addToPreparetion(id, commande.getText().toString()).enqueue(new Callback<Void>() {
-                                    @Override
-                                    public void onResponse(Call<Void> call, Response<Void> response) {
-                                        LinearLayoutDialogue.setVisibility(View.GONE);
-                                        ChechedAlert("Preparation réussite", "Cette Commande a été préparer correctement");
-                                        alertDialog.show();
-                                        System.out.println("Ligne Ajouté");
-                                    }
 
-                                    @Override
-                                    public void onFailure(Call<Void> call, Throwable t) {
-                                        System.out.println(t.getMessage());
+                client.getOneSaleOrder(commande.getText().toString()).enqueue(new Callback<SalesOrder>() {
+                    @Override
+                    public void onResponse(Call<SalesOrder> call, Response<SalesOrder> response) {
+                        if (response.body().getStatus().equals("Released")) {
+                            LinearLayoutDialogue.setVisibility(View.INVISIBLE);
+                            ErrorAlert("Echec Preparation ", "La Commande est Déjà préparer");
+                            alertDialog.show();
+                        } else if (ConfirmesalesLinesList.size() == salesLinesList.size()) {
+                            for (int i = 0; i < salesLinesList.size(); i++) {
+                                for (int j = 0; j < ConfirmesalesLinesList.size(); j++) {
+                                    if (ConfirmesalesLinesList.get(j) == salesLinesList.get(i)) {
+                                        resultOfTables += 1;
                                     }
-                                });
+                                    if (resultOfTables == salesLinesList.size()) {
+                                        client.addToPreparetion(id, commande.getText().toString()).enqueue(new Callback<Void>() {
+                                            @Override
+                                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                                LinearLayoutDialogue.setVisibility(View.GONE);
+                                                ChechedAlert("Preparation réussite", "Cette Commande a été préparer correctement");
+                                                alertDialog.show();
+                                                System.out.println("Ligne Ajouté");
+                                                client.updateSalesStatus(commande.getText().toString(), "1").enqueue(new Callback<Void>() {
+                                                    @Override
+                                                    public void onResponse(Call<Void> call, Response<Void> response) {
+                                                        System.out.println("commande modifier");
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<Void> call, Throwable t) {
+                                                        System.out.println(t.getMessage());
+                                                    }
+                                                });
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Void> call, Throwable t) {
+                                                System.out.println(t.getMessage());
+                                            }
+                                        });
+
+                                    }
+                                }
 
                             }
+
+
+                        } else {
+                            ErrorAlert("Echec", "La commande preparer n'est pas conforme a la commande demender");
+                            LinearLayoutDialogue.setVisibility(View.INVISIBLE);
+                            alertDialog.show();
                         }
-
                     }
 
+                    @Override
+                    public void onFailure(Call<SalesOrder> call, Throwable t) {
+                        System.out.println(t.getMessage());
+                    }
+                });
 
-                } else {
-                    ErrorAlert("Echec", "La commande preparer n'est pas conforme a la commande demender");
-                    LinearLayoutDialogue.setVisibility(View.INVISIBLE);
-                    alertDialog.show();
-                }
             }
 
         });
@@ -306,8 +329,7 @@ public class PreparationCommnadeFragment extends Fragment {
                                 ErrorAlert("Article déjà scanner", "");
                                 LinearLayoutDialogue.setVisibility(View.GONE);
                                 alertDialog.show();
-                            }
-                            else if (checkIfExistInConfirmeList() == false){
+                            } else if (checkIfExistInConfirmeList() == false) {
                                 ChechedAlert("Article Verifié", "cet atricle appartient à cette commande et la quantité est conforme à la commande ");
                                 ConfirmesalesLinesList.add(getLine());
                                 LinearLayoutDialogue.setVisibility(View.GONE);

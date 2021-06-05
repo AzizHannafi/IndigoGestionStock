@@ -15,7 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Path;
 
 public class ClientDynamicsWebService {
-    private static final String BASE_URL = "http:/192.168.1.9:8000/";
+    private static final String BASE_URL = "http:/192.168.1.10:8000/";
     private DynamicsInterface dynamicsInterface;
     private static ClientDynamicsWebService INSTANCE;
 
@@ -44,14 +44,16 @@ public class ClientDynamicsWebService {
         return dynamicsInterface.getOneSaleOrder(id_Order);
     }
 
-    public Call<SalesOrder> GetAllReleasedOrder() {
-        return dynamicsInterface.GetAllReleasedOrder();
+    public Call<List<SalesOrder>> GetAllReleasedSalesOrder() {
+        return dynamicsInterface.GetAllReleasedSalesOrder();
     }
 
-    public Call<List<SalesOrder>> GetAllOpenOrder() {
-        return dynamicsInterface.GetAllOpenOrder();
+    public Call<List<SalesOrder>> GetAllOpenSalesOrder() {
+        return dynamicsInterface.GetAllOpenSalesOrder();
     }
-
+    public Call<Void> updateSalesStatus(String idOrder, String status) {
+        return dynamicsInterface.updateSalesStatus(idOrder, status);
+    }
     //*********************************Sales Line crud ************************************//
     public Call<Void> deleteLine(Key key) {
         return dynamicsInterface.DeleteSlaesLine(key);
@@ -60,7 +62,24 @@ public class ClientDynamicsWebService {
     public Call<Void> deletePurchaseOrder(Key key) {
         return dynamicsInterface.DeletePurchaseOrder(key);
     }
+
+
+    public Call<List<SalesOrder>> getOneReleasedSalesOrder(String id_Order) {
+        return dynamicsInterface.getOneReleasedSalesOrder(id_Order);
+    }
+
+    public Call<List<SalesOrder>> getOneOpenSalesOrder(String id_Order) {
+        return dynamicsInterface.getOneOpenSalesOrder(id_Order);
+    }
     //*********************************Purchase order crud ************************************//
+
+    public Call<List<PurchaseOrders>> GetAllReleasedPurchaseOrder() {
+        return dynamicsInterface.GetAllReleasedPurchaseOrder();
+    }
+
+    public Call<List<PurchaseOrders>> GetAllOpenPurchaseOrder() {
+        return dynamicsInterface.GetAllOpenPurchaseOrder();
+    }
 
     public Call<List<PurchaseOrders>> getAllPurchaseOrders(String locationCode) {
         return dynamicsInterface.getAllPurchaseOrders(locationCode);
@@ -74,6 +93,14 @@ public class ClientDynamicsWebService {
         return dynamicsInterface.updateStatus(idPurchaseOrder, status);
     }
 
+
+    public Call<List<PurchaseOrders>> getOneReleasedPurchaseOrder(String id_PurchaseOrder) {
+        return dynamicsInterface.getOneReleasedPurchaseOrder(id_PurchaseOrder);
+    }
+
+    public Call<List<PurchaseOrders>>getOneOpenPurchaseOrder(String id_PurchaseOrder) {
+        return dynamicsInterface.getOneOpenPurchaseOrder(id_PurchaseOrder);
+    }
     //*********************************Item  crud ************************************//
     public Call<Item> getOneItem(String idItem) {
         return dynamicsInterface.getOneItem(idItem);

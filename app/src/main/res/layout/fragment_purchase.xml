@@ -33,16 +33,20 @@
                 android:textSize="25dp" />
         </androidx.appcompat.widget.Toolbar>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewPurchaseOrder"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/PurchaseOrderTabLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            app:tabIndicatorColor="#FFFFFF"
+            app:tabSelectedTextColor="#3964C3">
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/PurchaseOrderViewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </com.google.android.material.appbar.AppBarLayout>
 
 </FrameLayout>

@@ -30,11 +30,22 @@ public interface DynamicsInterface {
 
     //Get  all sales Released Order methode
     @GET("SalesOrder/GetAllReleasedOrder")
-    Call<SalesOrder> GetAllReleasedOrder();
+    Call<List<SalesOrder>> GetAllReleasedSalesOrder();
 
     //Get  all sales Open Order methode
     @GET("SalesOrder/GetAllOpenOrder")
-    Call<List<SalesOrder>> GetAllOpenOrder();
+    Call<List<SalesOrder>> GetAllOpenSalesOrder();
+
+    @PUT("SalesOrder/UpdateStatus/{idOrder}/{status}")
+    Call<Void> updateSalesStatus(@Path(value = "idOrder", encoded = true) String idOrder, @Path(value = "status", encoded = true) String status);
+
+    @GET("SalesOrder/GetOneOpen/{id_saleOrder}")
+    Call<List<SalesOrder>>getOneOpenSalesOrder(@Path(value = "id_saleOrder", encoded = true) String id_saleOrder);
+
+
+    @GET("SalesOrder/GetOneReleased/{id_saleOrder}")
+    Call<List<SalesOrder>> getOneReleasedSalesOrder(@Path(value = "id_saleOrder", encoded = true) String id_saleOrder);
+
 
     //**********************************************Sales lines Crud***********************************//
 
@@ -46,6 +57,14 @@ public interface DynamicsInterface {
 
     //**********************************************Purchase Order Crud***********************************//
 
+    //Get  all sales Released Order methode
+    @GET("PurchaseOrders/GetAllReleasedPurchaseOrders")
+    Call<List<PurchaseOrders>> GetAllReleasedPurchaseOrder();
+
+    //Get  all sales Open Order methode
+    @GET("PurchaseOrders/GetAllOpenPurchaseOrders")
+    Call<List<PurchaseOrders>> GetAllOpenPurchaseOrder();
+
     //Get  PurchaseOrders  methode
     @GET("PurchaseOrders/GetAll/{locationCode}")
     Call<List<PurchaseOrders>> getAllPurchaseOrders(@Path(value = "locationCode", encoded = true) String locationCode);
@@ -56,6 +75,13 @@ public interface DynamicsInterface {
 
     @PUT("PurchaseOrders/UpdateStatus/{idPurchaseOrder}/{status}")
     Call<Void> updateStatus(@Path(value = "idPurchaseOrder", encoded = true) String idPurchaseOrder, @Path(value = "status", encoded = true) String status);
+
+    @GET("PurchaseOrders/GetOneRelesed/{id_PurchaseOrder}")
+    Call<List<PurchaseOrders>>getOneReleasedPurchaseOrder(@Path(value = "id_PurchaseOrder", encoded = true) String id_PurchaseOrder);
+
+    @GET("PurchaseOrders/GetOneOpen/{id_PurchaseOrder}")
+    Call<List<PurchaseOrders>>getOneOpenPurchaseOrder(@Path(value = "id_PurchaseOrder", encoded = true) String id_PurchaseOrder);
+
 
     //**********************************************Items Crud***********************************//
     @GET("Items/GetOne/{idItem}")
