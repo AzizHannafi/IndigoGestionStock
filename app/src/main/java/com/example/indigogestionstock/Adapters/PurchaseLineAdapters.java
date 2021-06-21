@@ -41,12 +41,14 @@ public class PurchaseLineAdapters extends RecyclerView.Adapter<PurchaseLineAdapt
     @Override
     public void onBindViewHolder(@NonNull  PurchaseLineAdapters.PurchaseLineViewHolder holder, int position) {
         PurchaseLine pl = PurchaseLineList.get(position);
-        holder.Key.setText(pl.getKey());
+        //holder.Key.setText(pl.getKey());
         holder.type.setText(pl.getType());
         holder.document_No.setText(pl.getDocument_No());
         holder.line_No.setText(pl.getLine_No());
         holder.unit_of_Measure.setText(pl.getUnit_of_Measure());
         holder.unit_of_Measure_Code.setText(pl.getUnit_of_Measure_Code());
+        holder.description.setText(pl.getDescription());
+        holder.quantié.setText(pl.getQuantity());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,15 +64,17 @@ public class PurchaseLineAdapters extends RecyclerView.Adapter<PurchaseLineAdapt
     }
 
     public class PurchaseLineViewHolder extends RecyclerView.ViewHolder {
-        TextView Key,type,document_No,line_No,unit_of_Measure,unit_of_Measure_Code;
+        TextView Key,type,document_No,line_No,unit_of_Measure,unit_of_Measure_Code,description,quantié;
         public PurchaseLineViewHolder(@NonNull  View itemView) {
             super(itemView);
-            Key=(TextView)itemView.findViewById(R.id.key);
+          //  Key=(TextView)itemView.findViewById(R.id.key);
             type=(TextView)itemView.findViewById(R.id.Type);
             document_No=(TextView)itemView.findViewById(R.id.document_No);
             line_No=(TextView)itemView.findViewById(R.id.line_No);
             unit_of_Measure=(TextView)itemView.findViewById(R.id.unit_of_Measure);
             unit_of_Measure_Code=(TextView)itemView.findViewById(R.id.unitof_Measure_Code);
+            description=(TextView)itemView.findViewById(R.id.description);
+            quantié=(TextView)itemView.findViewById(R.id.quantité);
         }
     }
 }

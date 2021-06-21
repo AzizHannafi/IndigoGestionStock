@@ -15,6 +15,7 @@ import java.util.TimerTask;
 public class WelcomeActivity extends AppCompatActivity {
     Timer timer;
     UserSessionManager session;
+    Button btnEntrer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +27,15 @@ public class WelcomeActivity extends AppCompatActivity {
                   Intent intent = new Intent(getApplicationContext(),MainActivity.class);
                   startActivity(intent);
               }
-          },3000);
+          },1500);
 
+        btnEntrer= findViewById(R.id.btnEntrer);
+        btnEntrer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     ClientDynamicsWebService client;
     UserSessionManager session;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,19 +55,31 @@ public class MainActivity extends AppCompatActivity {
         String id = user.get(UserSessionManager.KEY_ID);
         String username = user.get(UserSessionManager.KEY_USERNAME);
         View header = nv.getHeaderView(0);
-        TextView userNameLastname = (TextView) header.findViewById(R.id.usernameLastname);
         TextView codemagasin = (TextView) header.findViewById(R.id.magasin);
+        TextView userNameLastname = (TextView) header.findViewById(R.id.usernameLastname);
 
-        client= new ClientDynamicsWebService();
+
+        client = new ClientDynamicsWebService();
         client.getUserByID(id).enqueue(new Callback<User>() {
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
-                if (response.body().getId().toString().equals("null")){
+                if (response.body().getId().toString().equals("null")) {
                     Toast.makeText(getApplicationContext(), "ID invalid", Toast.LENGTH_LONG).show();
-                 }
-                if(response.body().getId().toString().equals(id)){
-                    userNameLastname.setText(response.body().getUsername().toString()+" "+response.body().getLastname().toString());
-                    codemagasin.setText(response.body().getLocationCode().toString());
+                }
+                if (response.body().getId().toString().equals(id)) {
+                    userNameLastname.setText(response.body().getUsername().toString() + " " + response.body().getLastname().toString());
+
+                    switch (response.body().getPostUser().toString()) {
+                        case "1":
+                            codemagasin.setText("Agent de Stock");
+                            break;
+                        case "2":
+                            codemagasin.setText("Chef des lignes");
+                            break;
+                        case "3":
+                            codemagasin.setText("Agent de Qualité");
+                            break;
+                    }
                 }
             }
 
@@ -73,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<User> call, Throwable t) {
                 //Toast.makeText(getApplicationContext(), t.getMessage(), Toast.LENGTH_LONG).show();
             }
+
         });
 
 
@@ -84,7 +99,9 @@ public class MainActivity extends AppCompatActivity {
         });
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, menuGeneralFragment).commit();
 
-    }  public NavigationView.OnNavigationItemSelectedListener sidnavListener = new NavigationView.OnNavigationItemSelectedListener(){
+    }
+
+    public NavigationView.OnNavigationItemSelectedListener sidnavListener = new NavigationView.OnNavigationItemSelectedListener() {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -99,13 +116,13 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.commandevente:
                     selectedFragment = new SalesOrderFragment();
                     dr.closeDrawers();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).addToBackStack( "tag" ).commit();
 
-                break;
+                    break;
                 case R.id.Commandeachat:
                     selectedFragment = new PurchaseFragment();
                     dr.closeDrawers();
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).addToBackStack( "tag" ).commit();
                     break;
                 case R.id.logout:
                     session.logoutUser();
@@ -115,5 +132,10 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
     };
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity( new Intent(getApplicationContext(), MainActivity.class));
+        finish();
+    }
 }

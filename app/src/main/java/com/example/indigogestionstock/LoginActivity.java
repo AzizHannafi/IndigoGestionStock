@@ -1,5 +1,6 @@
 package com.example.indigogestionstock;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -37,6 +38,13 @@ public class LoginActivity extends AppCompatActivity {
                 Login();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity( new Intent(getApplicationContext(), WelcomeActivity.class));
+        finish();
     }
 
     public void Login(){

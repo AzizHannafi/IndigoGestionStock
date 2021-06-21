@@ -69,11 +69,13 @@ public class MenuGeneralFragment extends Fragment {
                 receptionMp,
                 rengementpalette,
                 PreparationCommnade,
+                Stat,
                 gestionQualite;
 
 
         consommatioDeclaration = (CardView) v.findViewById(R.id.consommatioDeclaration);
         receptionMp = (CardView) v.findViewById(R.id.receptionMp);
+        Stat = (CardView) v.findViewById(R.id.stat);
 
         rengementpalette = (CardView) v.findViewById(R.id.rengementpalette);
         PreparationCommnade = (CardView) v.findViewById(R.id.PreparationCommnade);
@@ -83,9 +85,9 @@ public class MenuGeneralFragment extends Fragment {
         consommatioDeclaration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (postUser >= 2) {
+                if (postUser == 3) {
                     ConsommationDeclarationFragment consommationDeclarationFragment = new ConsommationDeclarationFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, consommationDeclarationFragment).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, consommationDeclarationFragment).addToBackStack("tag").commit();
                 } else {
                     ErrorAlert("Non authorisé", "Vous n'êtes pas autorisé à accéder à cette fonctionnalité");
                     alertDialog.show();
@@ -97,9 +99,9 @@ public class MenuGeneralFragment extends Fragment {
         receptionMp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (postUser >= 1) {
+                if (postUser == 1) {
                     ReceptionMpFragment receptionMpFragment = new ReceptionMpFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, receptionMpFragment).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, receptionMpFragment).addToBackStack("tag").commit();
                 } else {
                     ErrorAlert("Non authorisé", "Vous n'êtes pas autorisé à accéder à cette fonctionnalité");
                     alertDialog.show();
@@ -112,9 +114,9 @@ public class MenuGeneralFragment extends Fragment {
         rengementpalette.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (postUser >= 1) {
+                if (postUser == 2) {
                     RengementPaletteFragment rengementPaletteFragment = new RengementPaletteFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, rengementPaletteFragment).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, rengementPaletteFragment).addToBackStack("tag").commit();
                 } else {
                     ErrorAlert("Non authorisé", "Vous n'êtes pas autorisé à accéder à cette fonctionnalité");
                     alertDialog.show();
@@ -125,9 +127,9 @@ public class MenuGeneralFragment extends Fragment {
         PreparationCommnade.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (postUser >= 1) {
+                if (postUser == 1) {
                     PreparationCommnadeFragment preparationCommnadeFragment = new PreparationCommnadeFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, preparationCommnadeFragment).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, preparationCommnadeFragment).addToBackStack("tag").commit();
                 }else {
                     ErrorAlert("Non authorisé", "Vous n'êtes pas autorisé à accéder à cette fonctionnalité");
                     alertDialog.show();
@@ -138,9 +140,9 @@ public class MenuGeneralFragment extends Fragment {
         gestionQualite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (postUser >= 3) {
+                if (postUser == 3) {
                     GestionQualiteFragment gestionQualiteFragment = new GestionQualiteFragment();
-                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, gestionQualiteFragment).commit();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, gestionQualiteFragment).addToBackStack("tag").commit();
                 }else {
                     ErrorAlert("Non authorisé", "Vous n'êtes pas autorisé à accéder à cette fonctionnalité");
                     alertDialog.show();
@@ -148,13 +150,23 @@ public class MenuGeneralFragment extends Fragment {
 
             }
         });
-       /* chargementCamion.setOnClickListener(new View.OnClickListener() {
+
+        Stat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChargementCamionFragment chargementCamionFragment = new ChargementCamionFragment();
-                getFragmentManager().beginTransaction().replace(R.id.fragment_container, chargementCamionFragment).commit();
+                if (postUser == 3) {
+                    StatFragment statFragment = new StatFragment();
+                    getFragmentManager().beginTransaction().replace(R.id.fragment_container, statFragment).addToBackStack( "tag" ).commit();
+
+                }
+                else {
+                    ErrorAlert("Non authorisé", "Vous n'êtes pas autorisé à accéder à cette fonctionnalité");
+                    alertDialog.show();
+                }
+
             }
-        });*/
+        });
+
 
         return v;
     }

@@ -98,11 +98,17 @@ public class ReleasedSalesOrderFragment extends Fragment {
                         @Override
                         public void onResponse(Call<List<SalesOrder>> call, Response<List<SalesOrder>> response) {
                             listso = response.body();
-
+                            System.out.println(listso.size());
+                            if (listso.size() == 0) {
+                                ErrorAlert("Pas de commande", "Cet intropot ne possède pas des commandes pour le moment");
+                                alertDialog.show();
+                            }else{
+                                SalesOrderAdapter salesOrderAdapter = new SalesOrderAdapter(getContext(), listso, getFragmentManager());
+                                recyclerViewSalesOrder.setAdapter(salesOrderAdapter);
+                            }
                             // layoutManager = new LinearLayoutManager(getContext(), RecyclerView.VERTICAL, false);
 
-                            SalesOrderAdapter salesOrderAdapter = new SalesOrderAdapter(getContext(), listso, getFragmentManager());
-                            recyclerViewSalesOrder.setAdapter(salesOrderAdapter);
+
                         }
 
                         @Override

@@ -38,9 +38,10 @@ public class SalesLineAdapter extends RecyclerView.Adapter<SalesLineAdapter.Sale
     @Override
     public void onBindViewHolder(@NonNull  SalesLineAdapter.SalesLineViewHolder holder, int position) {
         SalesLines sl= salesLinesList.get(position);
-        holder.Key.setText(sl.getKey());
+        //holder.Key.setText(sl.getKey());
         holder.line_No.setText(sl.getLine_No());
         holder.Quantity.setText(sl.getQuantity());
+        holder.description.setText(sl.getDescription());
     }
 
     @Override
@@ -49,12 +50,13 @@ public class SalesLineAdapter extends RecyclerView.Adapter<SalesLineAdapter.Sale
     }
 
     public class SalesLineViewHolder extends RecyclerView.ViewHolder {
-        TextView Key,Quantity,line_No;
+        TextView Key,Quantity,line_No, description;
         public SalesLineViewHolder(@NonNull View itemView) {
             super(itemView);
-            Key=(TextView)itemView.findViewById(R.id.key);
+            //Key=(TextView)itemView.findViewById(R.id.key);
             Quantity=(TextView)itemView.findViewById(R.id.quantity);
             line_No=(TextView)itemView.findViewById(R.id.line_No);
+            description=(TextView)itemView.findViewById(R.id.description);
         }
     }
 }

@@ -28,6 +28,9 @@ public class SalesLines {
     private String       Quantity_Shipped;
     private String       Qty_to_Invoice;
 
+    @SerializedName("description")
+    @Expose
+    private String Description;
 
     public SalesLines() {
     }
@@ -42,6 +45,14 @@ public class SalesLines {
         Unit_of_Measure = unit_of_Measure;
         Quantity_Shipped = quantity_Shipped;
         Qty_to_Invoice = qty_to_Invoice;
+    }
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String description) {
+        Description = description;
     }
 
     public String getKey() {

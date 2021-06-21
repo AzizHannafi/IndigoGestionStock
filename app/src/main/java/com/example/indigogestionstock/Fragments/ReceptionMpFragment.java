@@ -204,7 +204,7 @@ public class ReceptionMpFragment extends Fragment {
                         @Override
                         public void onResponse(Call<PurchaseOrders> call, Response<PurchaseOrders> response) {
                             List<PurchaseLine> purchaseLinestab = response.body().getPurchLines();
-                            String quantiteTheorique = null;
+                            String quantiteTheorique = "0";
                             for (int i = 0; i < purchaseLinestab.size(); i++) {
                                 if (purchaseLinestab.get(i).getItemNo().equals(code.getText().toString())) {
                                     quantiteTheorique = purchaseLinestab.get(i).getQuantity().toString();

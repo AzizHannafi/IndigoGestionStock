@@ -80,37 +80,7 @@ public class OpenPurchaseFragment extends Fragment {
         titleDialogue = alertDialog.findViewById(R.id.titleErrorMessage);
 
         getOrders(id);
-/*
-        client.getUserByID(id).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                userInfo = response.body();
-                client.GetAllOpenPurchaseOrder().enqueue(new Callback<List<PurchaseOrders>>() {
-                    @Override
-                    public void onResponse(Call<List<PurchaseOrders>> call, Response<List<PurchaseOrders>> response) {
-                        listPo = response.body();
-                        if (listPo.size() == 0) {
-                            ErrorAlert("Pas de commande", "Cet intropot ne possède pas des commandes pour le moment");
-                            alertDialog.show();
-                        } else {
 
-                            PurchaseOrdersAdapter purchaseOrdersAdapter = new PurchaseOrdersAdapter(getContext(), listPo, getFragmentManager());
-                            recyclerViewPurchaseOrder.setAdapter(purchaseOrdersAdapter);
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<PurchaseOrders>> call, Throwable t) {
-                        Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });*/
         searchIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

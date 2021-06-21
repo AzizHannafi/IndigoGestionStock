@@ -1,45 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.RengementPaletteFragment">
+    tools:context=".Fragments.StatFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#F4F4F4">
+
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            app:tabIndicatorColor="#FFFFFF">
+            android:background="#FFFFFF">
+
             <ImageView
                 android:id="@+id/btnBack"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:background="@drawable/backbtn"/>
+                android:background="@drawable/backbtn" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:text="Rangement Palette"
-                android:textSize="25dp"
-                android:textColor="#3964C3"/>
+                android:text="Statistique"
+                android:textColor="#3964C3"
+                android:textSize="25dp" />
         </androidx.appcompat.widget.Toolbar>
+
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/RangementTabLayout"
+            android:id="@+id/StatistiqueTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            app:tabIndicatorColor="#3964C3"
-            app:tabSelectedTextColor="#3964C3" />
+            android:background="#FFFFFF">
+
+        </com.google.android.material.tabs.TabLayout>
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/RangementTabLayoutViewPager"
+            android:id="@+id/StatistiqueViewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
+
 </FrameLayout>
